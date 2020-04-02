@@ -27,13 +27,11 @@ phone_time = {}
 
 for t in calls:
     if t[0] not in phone_time:
-        phone_time[t[0]] = 0
+        phone_time[t[0]] = int(t[3])
     else:
         phone_time[t[0]] += int(t[3])
-
-for t in calls:
     if t[1] not in phone_time:
-        phone_time[t[1]] = 0
+        phone_time[t[1]] = int(t[3])
     else:
         phone_time[t[1]] += int(t[3])
 
