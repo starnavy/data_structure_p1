@@ -35,11 +35,16 @@ for t in calls:
     else:
         phone_time[t[1]] += int(t[3])
 
+"""
 max_usage = 0
 max_key = None
 for key in phone_time:
     if phone_time[key] > max_usage:
         max_usage = phone_time[key]
         max_key = key
+"""
+
+max_key = max(phone_time, key = lambda k: phone_time[k])
+max_usage = phone_time[max_key]
 
 print("{} spent the longest time, {} seconds, on the phone during 2016".format(max_key, max_usage))
