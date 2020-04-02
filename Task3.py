@@ -53,17 +53,17 @@ def get_phone_code(phone_number):
   Returns:
     string: area code
   """
-  if phone_number[0] == '(':
+  if phone_number.startswith('(0'):
     code = phone_number[0:phone_number.find(')')+1]
-  elif phone_number[0:3] == '140':
+  elif phone_number.startswith('140'):
     code = '140'
   elif phone_number[0] in list('789'):
-    code = phone_number[0]
+    code = phone_number[:4]
   else:
-    # in case there are other area code conditions, for example, the typo may happen.
-    code = phone_number[0]
+    # in case there are other area code conditions, for example, the typo may happen; or (123)
+    code = phone_number[:4]
   return code
-
+ 
 
 def calls_by_somearea(calls_list, area_code):
   """
@@ -86,14 +86,12 @@ def calls_by_somearea(calls_list, area_code):
         codes[code] = 1
   return codes
 
-
 # Part A
-
 Bangalore_code = '(080)'
 calls_by_Bangalore = calls_by_somearea(calls, Bangalore_code)
 
 print("The numbers called by people in Bangalore have codes:")
-print(sorted(calls_by_Bangalore.keys()))
+print('\n'.join(str(i) for i in sorted(calls_by_Bangalore.keys()) ))
 
 # Part B
 pct = 100 * float(calls_by_Bangalore[Bangalore_code])/sum(calls_by_Bangalore.values())
