@@ -60,6 +60,7 @@ def get_phone_code(phone_number):
   elif phone_number[0] in list('789'):
     code = phone_number[0]
   else:
+    # in case there are other area code conditions, for example, the typo may happen.
     code = phone_number[0]
   return code
 
