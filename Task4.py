@@ -25,8 +25,6 @@ Print a message:
 The list of numbers should be print out one per line in lexicographic order with no duplicates.
 """
 
-## Approach1: Generic approach
-
 def get_phone_usage_summary(calls_list, texts_list):
     """
     Generate the phone usage summary including: outgoing/incoming phone calls/texts
