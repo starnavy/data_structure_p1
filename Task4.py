@@ -42,19 +42,19 @@ def get_phone_usage_summary(calls_list, texts_list):
             phone_summary[c[0]] = [1,0,0,0]
         else:
             phone_summary[c[0]][0] += 1
-            if c[1] not in phone_summary:
-                phone_summary[c[1]] = [0,1,0,0]
-            else:
-                phone_summary[c[1]][1] += 1
+        if c[1] not in phone_summary:
+            phone_summary[c[1]] = [0,1,0,0]
+        else:
+            phone_summary[c[1]][1] += 1
     for t in texts_list:
         if t[0] not in phone_summary:
             phone_summary[t[0]] = [0,0,1,0]
         else:
             phone_summary[t[0]][2] += 1
-            if t[1] not in phone_summary:
-                phone_summary[t[0]] = [0,0,0,1]
-            else:
-                phone_summary[t[0]][3] += 1
+        if t[1] not in phone_summary:
+            phone_summary[t[0]] = [0,0,0,1]
+        else:
+            phone_summary[t[0]][3] += 1
     return phone_summary
 
 
@@ -68,6 +68,24 @@ def get_suspicious_telemarketers(calls_list, texts_list):
     return sorted(suspicious_telemarketers)
 
 
+def check():
+    """
+    Compare the results yield by set() approach and original approach. If pass, the modified original approach works.
+    """
+    suspicious_telemarketers = get_suspicious_telemarketers(calls, texts)
+    outgoing = set()
+    non_tele = set()
+    for c in calls:
+        outgoing.add(c[0])
+        non_tele.add(c[1])
+    for t in texts:
+        non_tele.add(t[0])
+        non_tele.add(t[1])
+    telemarketers = sorted(outgoing - non_tele)
+    if len(suspicious_telemarketers) == len(telemarketers):
+        print('Pass')
+
+
 def main():
     suspicious_telemarketers = get_suspicious_telemarketers(calls, texts)
     print("These numbers could be telemarketers: ")
@@ -75,4 +93,3 @@ def main():
         print(i)
 
 main()
-
