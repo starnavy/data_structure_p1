@@ -43,3 +43,57 @@ Print the answer as a part of a message::
 to other fixed lines in Bangalore."
 The percentage should have 2 decimal digits
 """
+
+
+def get_phone_code(phone_number):
+  """
+  Extract the code from a given phone_number:
+  Args:
+    string: phone_number
+  Returns:
+    string: area code
+  """
+  if phone_number[0] == '(':
+    code = phone_number[0:phone_number.find(')')+1]
+  elif phone_number[0:3] == '140':
+    code = '140'
+  elif phone_number[0] in list('789'):
+    code = phone_number[0]
+  else:
+    code = phone_number[0]
+  return code
+
+
+def calls_by_somearea(calls_list, area_code):
+  """
+  Extract all area code of phone calls maked by Bangalore fixed phones (with area code '(080)')
+  Args:
+    list: a list of calls with the first item as caller, the second item as receiver
+    string: area code like '(080)' for Bangalore
+  Returns:
+    dictionary: the key is the area code, and the value is the count of calls
+  """
+  codes = {}
+  for c in calls_list:
+    caller = c[0]
+    receiver = c[1]
+    if get_phone_code(caller) == area_code:
+      code = get_phone_code(receiver)
+      if code in codes:
+        codes[code] += 1
+      else:
+        codes[code] = 1
+  return codes
+
+
+# Part A
+
+Bangalore_code = '(080)'
+calls_by_Bangalore = calls_by_somearea(calls, Bangalore_code)
+
+print("The numbers called by people in Bangalore have codes:")
+print(sorted(calls_by_Bangalore.keys()))
+
+# Part B
+pct = 100 * float(calls_by_Bangalore[Bangalore_code])/sum(calls_by_Bangalore.values())
+print("{:.2f} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.".format(pct))
